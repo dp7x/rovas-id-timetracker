@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "ROVAS Connector for iD Editor",
-  "version": "1.79",
-  "description": "Tracks editing session in Openstreetmap iD and sends working reports to ROVAS App.",
+  "version": "1.80",
+  "description": "Tracks editing session in OpenStreetMap and OpenHistoricalMap iD and sends working reports to ROVAS App.",
   "permissions": [
     "storage",
     "webRequest"  
@@ -10,6 +10,8 @@
   "host_permissions": [
     "https://www.openstreetmap.org/edit*",
     "https://api.openstreetmap.org/*",  
+    "https://www.openhistoricalmap.org/*",
+    "https://api.openhistoricalmap.org/*",
     "https://rovas.app/*",	
     "https://dev.rovas.app/*",         
     "https://overpass-api.de/*",       
@@ -26,9 +28,10 @@
   "content_scripts": [
     {
       "matches": [
-	    "https://www.openstreetmap.org/edit*",
-		"https://rapideditor.org/edit*"
-	  ],
+        "https://www.openstreetmap.org/edit*",
+        "https://www.openhistoricalmap.org/edit*",
+        "https://rapideditor.org/edit*"
+      ],
       "js": ["content.js"]
     }
   ],

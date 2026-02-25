@@ -1,6 +1,6 @@
 ## **ROVAS Connector for OpenStreetMap iD Editor**
 
-This Chrome extension is designed to seamlessly integrate with the OpenStreetMap (OSM) iD or Rapid editor, automatically tracking your mapping time and submitting work reports to the [ROVAS App](https://rovas.app/). It simplifies the process of reporting your contributions to the OSM project on Rovas, ensuring accurate and effortless time logging.
+This Chrome extension is designed to seamlessly integrate with the OpenStreetMap (OSM) iD or Rapid editor and OpenHistoricalMap (OHM) iD editor, automatically tracking your mapping time and submitting work reports to the [ROVAS App](https://rovas.app/). It simplifies the process of reporting your contributions to the OSM and OHM projects on Rovas, ensuring accurate and effortless time logging.
 
 
 ## You can find the packed extension, ready to install on your browser, at the Chrome Web Store. Click here to [Download](https://chromewebstore.google.com/detail/rovas-connector-for-id-ed/ddjhgjigninagcaneanjmnbjgjangkpp) ##
@@ -18,7 +18,7 @@ ________________________________________
 - User-Configurable Credentials: Securely store your ROVAS API Key and Token via the extension's popup.
 - Session Control: Start, pause, and stop your mapping sessions directly from a convenient on-screen timer.
 - Changeset Data Inclusion: Captures your OSM changeset ID and comment for richer ROVAS reports.
-- Shareholder Verification: Automatically checks and registers your participation in the [OpenStreetMap project](https://rovas.app/openstreetmap) within Rovas.
+- Shareholder Verification: Automatically checks and registers your participation in the [OpenStreetMap project](https://rovas.app/openstreetmap) or [OpenHistoricalMap project](https://rovas.app/OpenHistoricalMap) within Rovas.
 
 ________________________________________
 
@@ -79,7 +79,7 @@ ________________________________________
 
 **Usage**
 
-1.	Start Mapping: Navigate to the OpenStreetMap iD editor (https://www.openstreetmap.org/edit) or Rapid editor (https://https://rapideditor.org/edit).
+1.	Start Mapping: Navigate to the OpenStreetMap iD editor (https://www.openstreetmap.org/edit) or Rapid editor (https://https://rapideditor.org/edit). For OpenHistoricalMap, navigate to its iD editor (https://www.openhistoricalmap.org/edit).
 2.	Timer Badge: You should see a small timer badge appear in the bottom-right corner of the editor. The timer will automatically start when the page loads.
     - Use the "Pause" button to temporarily stop tracking time.
     - Use the "Start" button to resume a paused session or begin a new one if it was manually stopped.

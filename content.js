@@ -236,15 +236,45 @@ function setButtonsState(state) {
     }
 }
 
-function fetchChangesetComment(changesetId, callback) {
-    fetch(`https://api.openstreetmap.org/api/0.6/changeset/${changesetId}`)
+function getProjectID(siteName) {
+    // Fixed project ID for OpenStreetMap/OpenHistoricalMap on Rovas: hardcoded
+    const ROVAS_OSM_PROJECT_ID = 1998;
+    const ROVAS_OHM_PROJECT_ID = 518464;
+
+    return siteName === "OpenStreetMap" ? ROVAS_OSM_PROJECT_ID : ROVAS_OHM_PROJECT_ID;
+}
+
+// works in a similar way to fetch(), but runs in the background script
+function fetchFromBackground(site, payload) {
+    return new Promise(resolve => {
+        chrome.runtime.sendMessage(
+            {
+                contentScriptQuery: 'fetchUrl',
+                site: site,
+                payload: payload
+            },
+            response => {
+                resolve(response);
+            }
+        );
+    });
+}
+
+function fetchChangesetComment(changesetId, callback, siteName) {
+    // resolves to openstreetmap or openhistoricalmap
+    const changesetSite = siteName === "OpenStreetMap" 
+        ? `https://api.openstreetmap.org/api/0.6/changeset/${changesetId}` 
+        : `https://api.openhistoricalmap.org/api/0.6/changeset/${changesetId}`;  
+        // OHM does not currently work because OHM API has cloudflare... to test against bots... on its API... no clue why
+
+    fetchFromBackground(changesetSite)  
         .then(response => {
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return response.text();
-        })
-        .then(xmlText => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+            const xmlDoc = parser.parseFromString(response.text, "application/xml");
             const commentTag = xmlDoc.querySelector("changeset tag[k='comment']");
             const comment = commentTag ? commentTag.getAttribute("v") : "";
             callback(null, comment);
@@ -254,8 +284,10 @@ function fetchChangesetComment(changesetId, callback) {
         });
 }
 
+
+
 // Function to check if the user is a project shareholder
-async function checkOrCreateShareholder() {
+async function checkOrCreateShareholder(siteName) {
     await loadRovasCredentials(); 
 
     if (!ROVAS_API_KEY || !ROVAS_TOKEN) {
@@ -266,15 +298,12 @@ async function checkOrCreateShareholder() {
 
     console.log(`%c[ROVAS] Attempting to verify/add project shareholding...`, 'color: #8A2BE2; font-weight: bold;');
 
-    // Fixed project ID for OpenStreetMap on Rovas: hardcoded
-    const ROVAS_PROJECT_ID = 1998;
-
     const payload = {
-        project_id: ROVAS_PROJECT_ID
+        project_id: getProjectID(siteName),
     };
 
     try {
-        const response = await fetch("https://rovas.app/rovas/rules/rules_proxy_check_or_add_shareholder", {
+        const response = await fetchFromBackground("https://rovas.app/rovas/rules/rules_proxy_check_or_add_shareholder", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -285,7 +314,7 @@ async function checkOrCreateShareholder() {
             body: JSON.stringify(payload)
         });
 
-        const textResponse = await response.text();
+        const textResponse = response.text;
 
         if (!response.ok) {
             // If the response is not OK, throw an error with the response text for debugging.
@@ -320,7 +349,7 @@ async function checkOrCreateShareholder() {
 
         if (shareholderNid) {
             if (parseInt(shareholderNid, 10) > 0) {
-                console.log(`%c[ROVAS] OpenStreetMap project shareholding (Shareholder NID): ${shareholderNid} confirmed.`, 'color: #00FF7F; font-weight: bold;');
+                console.log(`%c[ROVAS] ${siteName} project shareholding (Shareholder NID): ${shareholderNid} confirmed.`, 'color: #00FF7F; font-weight: bold;');
                 return shareholderNid;
             } else {
                 console.warn(`%c[ROVAS] Project participation returned invalid ID (0 or negative): ${shareholderNid}.`, 'color: #FF4500; font-weight: bold;');
@@ -339,7 +368,7 @@ async function checkOrCreateShareholder() {
 }
 
 // --- Function to automatically send the payload with confirm request ---
-async function sendRovasReport(changesetId) {
+async function sendRovasReport(changesetId, siteName) {
     await loadRovasCredentials(); 
 
     // Stop if credentials are not available
@@ -379,7 +408,7 @@ async function sendRovasReport(changesetId) {
         return;
     }	
 
-    console.log(`%c[ROVAS] Detected ID ${changesetId}, preparing for automatic upload. Effective duration: ${actualDurationMs}ms`, 'color: #FFA500; font-weight: bold;');
+    console.log(`%c[ROVAS] Detected ${siteName} ID ${changesetId}, preparing for automatic upload. Effective duration: ${actualDurationMs}ms`, 'color: #FFA500; font-weight: bold;');
 
     // We get changeset comment
     let comment = "";
@@ -388,7 +417,7 @@ async function sendRovasReport(changesetId) {
             fetchChangesetComment(changesetId, (err, cmt) => {
                 if (err) reject(err);
                 else resolve(cmt);
-            });
+            }, siteName);
         });
     } catch (error) {
         console.error("[ROVAS] Error in getting the comment:", error);
@@ -407,13 +436,17 @@ async function sendRovasReport(changesetId) {
         return;
     }
 
+    const proofOSM = `https://overpass-api.de/achavi/?changeset=${changesetId}`;
+    const proofOHM = `https://www.openhistoricalmap.org/changeset/${changesetId}`;
+    
+
     const rovasPayload = {
         wr_classification: 1645,
-        wr_description: comment || "Made edits to the OpenStreetMap project using the iD editor. This report was created automatically by the browser extension.",
+        wr_description: comment || `Made edits to the ${siteName} project using the iD editor. This report was created automatically by the browser extension.`,
         wr_activity_name: "Creating map data with iD",
         wr_hours: Math.max(0.01, (actualDurationMs / 3600000).toFixed(2)),
-        wr_web_address: `https://overpass-api.de/achavi/?changeset=${changesetId}`,
-        parent_project_nid: 1998,
+        wr_web_address: siteName === "OpenStreetMap" ? proofOSM : proofOHM,
+        parent_project_nid: getProjectID(siteName),
         date_started: Math.floor(startTime.getTime() / 1000),
         access_token: Math.random().toString(36).substring(2, 18),
         publish_status: 1
@@ -459,7 +492,7 @@ async function sendRovasReport(changesetId) {
 
         console.log("[ROVAS] Submitting report with the modified duration.");
         
-        const response = await fetch("https://rovas.app/rovas/rules/rules_proxy_create_work_report", {
+        const response = await fetchFromBackground("https://rovas.app/rovas/rules/rules_proxy_create_work_report", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -470,7 +503,7 @@ async function sendRovasReport(changesetId) {
             body: JSON.stringify(rovasPayload)
         });
 
-        const textResponse = await response.text();
+        const textResponse = response.text;
 
         if (!response.ok) {
             throw new Error(`Server error ${response.status}: ${textResponse}`);
@@ -518,7 +551,7 @@ async function chargeUsageFee(wrId, laborHours) {
     };
 
     try {
-        const response = await fetch("https://rovas.app/rovas/rules/rules_proxy_create_aur", {
+        const response = await fetchFromBackground("https://rovas.app/rovas/rules/rules_proxy_create_aur", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -529,7 +562,7 @@ async function chargeUsageFee(wrId, laborHours) {
             body: JSON.stringify(feePayload)
         });
 
-        const textResponse = await response.text();
+        const textResponse = response.text;
 
         if (!response.ok) {
             console.warn(`[ROVAS] Usage fee charge failed with status ${response.status}: ${textResponse}`);
@@ -554,10 +587,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         }
 
         latestChangesetId = request.changesetId;
-        console.log(`%c[ROVAS Content] NEW Changeset ID received from background: ${request.changesetId}`, 'color: orange; font-weight: bold;');
+        console.log(`%c[ROVAS Content] NEW Changeset ID in ${request.siteName} received from background: ${request.changesetId}`, 'color: orange; font-weight: bold;');
 
         // We call the function to send the report with confirm request
-        sendRovasReport(request.changesetId);
+        sendRovasReport(request.changesetId, request.siteName);
     }
 });
 
@@ -585,7 +618,7 @@ const url = new URL(window.location.href);
 const host = url.hostname;
 const pathname = url.pathname;
 
-const isOSEditor = host === "www.openstreetmap.org" && pathname === "/edit";
+const isOSEditor = (host === "www.openstreetmap.org" || host === "www.openhistoricalmap.org") && pathname === "/edit";
 const isRapidStandalone = host === "rapideditor.org" && pathname === "/edit";
 
 if (isOSEditor || isRapidStandalone) {
