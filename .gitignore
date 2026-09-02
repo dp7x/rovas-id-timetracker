@@ -12,3 +12,7 @@ yarn-error.log
 # Ignore local Chrome extension files
 *.crx
 *.pem
+
+# Generated cross-browser builds
+dist/
+*.zip

@@ -1,0 +1,11 @@
+{
+  "name": "rovas-id-timetracker",
+  "version": "1.80.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:chrome": "node scripts/build.js chrome",
+    "build:firefox": "node scripts/build.js firefox",
+    "check": "node scripts/check.js"
+  }
+}

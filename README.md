@@ -1,6 +1,6 @@
 ## **ROVAS Connector for OpenStreetMap iD Editor**
 
-This Chrome extension is designed to seamlessly integrate with the OpenStreetMap (OSM) iD or Rapid editor and OpenHistoricalMap (OHM) iD editor, automatically tracking your mapping time and submitting work reports to the [ROVAS App](https://rovas.app/). It simplifies the process of reporting your contributions to the OSM and OHM projects on Rovas, ensuring accurate and effortless time logging.
+This cross-browser extension integrates with the OpenStreetMap (OSM) iD or Rapid editor and OpenHistoricalMap (OHM) iD editor, automatically tracking your mapping time and submitting work reports to the [ROVAS App](https://rovas.app/). Chrome and Firefox builds share the same application code and use browser-specific manifests.
 
 
 ## You can find the packed extension, ready to install on your browser, at the Chrome Web Store. Click here to [Download](https://chromewebstore.google.com/detail/rovas-connector-for-id-ed/ddjhgjigninagcaneanjmnbjgjangkpp) ##
@@ -25,40 +25,37 @@ ________________________________________
 
 **Installation**
 
-Please note that this extension is currently released in developer mode and is not yet packaged. To install it, you will need to load it as an "unpacked" extension in Chrome.
+The Chrome release is available from the [Chrome Web Store](https://chromewebstore.google.com/detail/rovas-connector-for-id-ed/ddjhgjigninagcaneanjmnbjgjangkpp). Firefox support is built from the same source and can be loaded temporarily for testing until the official Mozilla Add-ons release is available.
 
 Prerequisites: 
-- Google Chrome (or Chrome based Openstreetmap App)
+- Node.js 16 or later for development builds
+- Google Chrome, a Chromium-based browser, or Firefox
 - ROVAS Account: You must be a registered user in the [ROVAS App](https://www.google.com/search?q=https://neofund.sk/rovas-api%23) and have your API KEY and TOKEN (available on your account page).
 
-**Steps to Install**
+**Build both browsers**
 
-1.	Prepare the Extension Files:
-    - Create a new folder on your computer (e.g., ROVAS_Connector_Extension).
-    - Download all files from this GitHub repository (the manifest.json, content.js, background.js, popup.html, popup.js, and the icon16.png, icon48.png images) and place them directly inside this new folder. Make sure manifest.json is at the very top level of this folder, not inside a subfolder.
+```sh
+npm run check
+npm run build
+```
 
-2.	Open Chrome Extensions Page:
-    - Type chrome://extensions in your Chrome address bar and press Enter.
-    <img width="476" height="84" alt="Image" src="https://github.com/dp7x/rovas-id-timetracker/blob/main/readme/idr1.png" />
+This creates `dist/chrome` and `dist/firefox`. Each directory contains the shared source files and the correct `manifest.json` for that browser. You can also run `npm run build:chrome` or `npm run build:firefox` separately.
 
-    - Alternatively, click the three dots (⋮) in the top right corner of Chrome, go to "More tools," and then select "Extensions."
+**Load the Chrome build**
 
-3.	Enable Developer Mode:
-    - Locate the "Developer mode" toggle switch, usually in the top right corner of the extensions page, and turn it ON.
-    <img width="707" height="138" alt="Image" src="https://github.com/dp7x/rovas-id-timetracker/blob/main/readme/idr2.png" />
+1. Open `chrome://extensions` and enable Developer mode.
+2. Click **Load unpacked**.
+3. Select `dist/chrome`.
 
-4.	Load Unpacked Extension:
-    - Click the "Load unpacked" button that appears after enabling Developer Mode.
+**Load the Firefox build**
 
-5.	Select Extension Folder:
-    - Navigate to and select the root folder where you placed the extension files (e.g., ROVAS_Connector_Extension/).
-    - Click "Select Folder" (or "Open" on some systems) to load the extension.
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on**.
+3. Select `dist/firefox/manifest.json`.
 
-6.	Verify Installation:
-    - The "ROVAS Connector for iD Editor" extension should now appear in your list of installed extensions.
-      <img width="321" height="167" alt="Image" src="https://github.com/dp7x/rovas-id-timetracker/blob/main/readme/idr3.png" />
+The root `manifest.json` remains the Chrome manifest for backward compatibility with the existing unpacked-install workflow.
 
-    - It's recommended to reboot Chrome for the extension to fully initialize after installation.
+Firefox support was made possible by the practical port and testing work contributed by [@filip-769](https://github.com/filip-769/rovas-id-connector-for-firefox).
 
 
 ________________________________________
