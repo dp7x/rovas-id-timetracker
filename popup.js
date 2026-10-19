@@ -47,8 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Helper to get translation object synchronously (from last loaded)
     let lastTranslations = {};
     function getT() { return lastTranslations; }
+    let activeLanguage = 'en';
+    const commentNotices = RovasCommentNotices.createPanel(getT, () => activeLanguage);
 
-    // Manual diagnostics only: opening the popup does not poll the new endpoint.
+    // Extra diagnostics are available manually, separately from the notification list.
     const checkNotificationsBtn = document.getElementById('checkNotificationsBtn');
     const notificationDiagnosticsStatus = document.getElementById('notificationDiagnosticsStatus');
     const notificationDiagnosticsOutput = document.getElementById('notificationDiagnosticsOutput');
@@ -242,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to update the new stats section
     async function updateRovasStats() {
+        commentNotices.refresh();
         const t = getT();
         meritsEl.textContent = t.loading_data || 'Loading...';
         chronsEl.textContent = t.loading_data || 'Loading...';
@@ -373,6 +376,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.getElementById('langLabel').textContent = t.language_label;
 		populateLanguageSelector(currentLang, t, locales);
 		lastTranslations = t;
+		activeLanguage = currentLang;
+		commentNotices.render();
 		document.getElementById('notificationDiagnosticsTitle').textContent = t.notification_diagnostics_title;
 		document.getElementById('notificationDiagnosticsInfo').textContent = t.notification_diagnostics_info;
 		checkNotificationsBtn.textContent = t.notification_diagnostics_check;

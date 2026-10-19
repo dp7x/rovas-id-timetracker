@@ -61,5 +61,16 @@
   "notification_diagnostics_http_error": "A szerver HTTP-hibát küldött. Az állapotot lásd alább.",
   "notification_diagnostics_not_json": "A szerver nem JSON-választ küldött. A HTTP-állapotot lásd alább.",
   "notification_diagnostics_timeout": "A szerver 15 másodpercen belül nem válaszolt.",
-  "notification_diagnostics_network_error": "Nem sikerült elérni az értesítési API-t."
+  "notification_diagnostics_network_error": "Nem sikerült elérni az értesítési API-t.",
+  "comment_notices_title": "Új megjegyzések",
+  "comment_notices_refresh": "Frissítés",
+  "comment_notices_restore": "Rejtett értesítések megjelenítése",
+  "comment_notices_loading": "Megjegyzések betöltése...",
+  "comment_notices_empty": "Nincsenek új megjegyzések.",
+  "comment_notices_error": "Nem sikerült betölteni a megjegyzések értesítéseit.",
+  "comment_notices_credentials": "Az értesítések megtekintéséhez mentsd a Rovas hitelesítő adataidat.",
+  "comment_notices_open": "Megjegyzés megnyitása",
+  "comment_notices_hide": "Elrejtés a bővítményben",
+  "comment_notices_hide_hint": "Csak ezt az értesítést rejti el ebben a böngészőben. A jelentéshez érkező új megjegyzések ismét megjelennek.",
+  "comment_notices_storage_error": "Nem sikerült menteni a rejtett értesítéseket. Próbáld újra."
 }

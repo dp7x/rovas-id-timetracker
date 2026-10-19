@@ -121,8 +121,16 @@ ________________________________________
 
 For questions or feedback, please open an issue on this GitHub repository.
 
+## New comment notifications
+
+The popup loads pending watched-comment notices when opened and after saving credentials. Use **Refresh** to check again. Each entry shows the report title, report ID, date and an **Open comment** link. The API supplies notification metadata, not the comment body or author.
+
+**Hide in extension** stores that report/comment pair locally in this browser. It does not dismiss the notification on Rovas. A different comment ID on the same report appears again; **Show hidden notifications** resets the local hidden list for the current credentials. Local hidden IDs are isolated by a hash of the API key and capped at the latest 500 entries. No comment text or titles are stored.
+
+Alexander confirmed that users are not notified about their own comments and that visiting the report or comment on Rovas removes the pending notification. The extension does not call the session-based `/comment-watch/dismiss/` URL. Which reports a user automatically follows is determined by Rovas; the extension displays the notices returned by the API without project filtering. There is no background polling or operating-system notification.
+
 ## Notification API diagnostics
 
 The popup includes a collapsible **Notification API check** section. Save your existing Rovas API Key and Token, open that section, and click **Check notification API**. The extension makes one authenticated GET request to `/rovas/rovas_comment_notices.json` and displays the HTTP status and JSON response. Select the output to copy it. API credentials and sensitive response fields are redacted; names and comment text may remain in the response. Results are not saved or sent elsewhere.
 
-This is a diagnostic tool, not yet an unread-comment list. It does not poll in the background or send a separate mark-as-read request. The server-side read/acknowledgment behavior is still undocumented, so the effect of this GET on pending notices has not been verified. A real response containing at least one notice is needed to establish the response fields before implementing the list.
+The diagnostic tool remains available separately from the notification list and sends no dismiss request. The list uses the confirmed response shape: `status`, `count`, and `notices`, whose entries contain `nid`, `node_title`, `cid`, `comment_url`, and a Unix-seconds `created` timestamp.

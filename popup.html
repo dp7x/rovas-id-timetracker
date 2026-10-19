@@ -155,6 +155,11 @@
             color: #6c757d;
             padding: 5px;
         }
+        #comment-notices-list { list-style: none; padding: 0; max-height: 240px; overflow-y: auto; }
+        #comment-notices-list li { background: #fff; border-left: 4px solid #28a745; padding: 8px; margin: 6px 0; overflow-wrap: anywhere; }
+        #comment-notices-list button { margin-left: 10px; background: #6c757d; }
+        .comment-notice-date { font-size: 12px; color: #666; margin: 4px 0; }
+        #commentNoticesStatus { font-size: 13px; }
     </style>
 </head>
 <body>
@@ -179,6 +184,14 @@
             <span class="label" id="chronsScoreText"></span>
             <span class="value loading" id="chrons-score">...</span>
         </div>
+    </div>
+
+    <div class="rovas-section">
+        <h4 class="section-title"><span id="commentNoticesTitle"></span><span id="commentNoticesCount"></span></h4>
+        <button type="button" id="refreshCommentNotices"></button>
+        <button type="button" id="restoreCommentNotices" hidden></button>
+        <p id="commentNoticesStatus" role="status" aria-live="polite"></p>
+        <ul id="comment-notices-list"></ul>
     </div>
 
     <div class="rovas-section">
@@ -219,6 +232,7 @@
             style="width:100%; box-sizing:border-box; font-family:monospace;"></textarea>
     </details>
     <script src="notification-diagnostics.js"></script>
+    <script src="comment-notices.js"></script>
     <script src="popup.js"></script>
 </body>
 </html>
