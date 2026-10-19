@@ -10,6 +10,7 @@ const sharedFiles = [
   "content.js",
   "popup.html",
   "popup.js",
+  "notification-diagnostics.js",
   "icon16.png",
   "icon48.png",
   "locales"

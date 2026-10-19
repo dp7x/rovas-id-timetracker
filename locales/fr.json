@@ -50,5 +50,16 @@
   "no_reports_to_validate": "Aucun rapport à valider.",
   "verifications_error": "Erreur lors de la récupération des rapports.",
   "report_id": "Rapport",
-  "hours_short": "h"
+  "hours_short": "h",
+  "notification_diagnostics_title": "Vérification de l’API des notifications",
+  "notification_diagnostics_info": "Vérification manuelle avec les identifiants enregistrés. La réponse est affichée ici ; la clé API et le jeton sont masqués. Aucune requête distincte de marquage comme lu n’est envoyée.",
+  "notification_diagnostics_check": "Vérifier l’API des notifications",
+  "notification_diagnostics_output": "Réponse API (peut contenir des noms et commentaires)",
+  "notification_diagnostics_loading": "Vérification de l’API des notifications...",
+  "notification_diagnostics_missing_credentials": "Enregistrez d’abord la clé API et le jeton.",
+  "notification_diagnostics_success": "Réponse JSON reçue. Vous pouvez la sélectionner et la copier ci-dessous.",
+  "notification_diagnostics_http_error": "Le serveur a renvoyé une erreur HTTP. Consultez le statut ci-dessous.",
+  "notification_diagnostics_not_json": "Le serveur n’a pas renvoyé de JSON. Consultez le statut HTTP ci-dessous.",
+  "notification_diagnostics_timeout": "Le serveur n’a pas répondu dans les 15 secondes.",
+  "notification_diagnostics_network_error": "Impossible de contacter l’API des notifications."
 }

@@ -50,5 +50,16 @@
   "hours_short": "h",
   "lang_de": "Tedesco",
   "lang_fr": "Francese",
-  "lang_es": "Spagnolo"
+  "lang_es": "Spagnolo",
+  "notification_diagnostics_title": "Verifica API notifiche",
+  "notification_diagnostics_info": "Controllo manuale con le credenziali salvate. La risposta viene mostrata qui; API Key e Token sono mascherati. Il controllo non invia una richiesta separata per segnare le notifiche come lette.",
+  "notification_diagnostics_check": "Verifica API notifiche",
+  "notification_diagnostics_output": "Risposta API (può includere nomi e commenti)",
+  "notification_diagnostics_loading": "Verifica API notifiche in corso...",
+  "notification_diagnostics_missing_credentials": "Salva prima API Key e Token.",
+  "notification_diagnostics_success": "Risposta JSON ricevuta. Puoi selezionarla e copiarla qui sotto.",
+  "notification_diagnostics_http_error": "Il server ha restituito un errore HTTP. Vedi lo stato qui sotto.",
+  "notification_diagnostics_not_json": "Il server non ha restituito JSON. Vedi lo stato HTTP qui sotto.",
+  "notification_diagnostics_timeout": "Il server non ha risposto entro 15 secondi.",
+  "notification_diagnostics_network_error": "Impossibile contattare l’API notifiche."
 }

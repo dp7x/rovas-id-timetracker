@@ -48,6 +48,42 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastTranslations = {};
     function getT() { return lastTranslations; }
 
+    // Manual diagnostics only: opening the popup does not poll the new endpoint.
+    const checkNotificationsBtn = document.getElementById('checkNotificationsBtn');
+    const notificationDiagnosticsStatus = document.getElementById('notificationDiagnosticsStatus');
+    const notificationDiagnosticsOutput = document.getElementById('notificationDiagnosticsOutput');
+    const notificationDiagnosticsOutputLabel = document.getElementById('notificationDiagnosticsOutputLabel');
+    let diagnosticOutcome = null;
+    function renderDiagnosticStatus() {
+        notificationDiagnosticsStatus.textContent = diagnosticOutcome
+            ? getT()['notification_diagnostics_' + diagnosticOutcome] : '';
+    }
+    checkNotificationsBtn.addEventListener('click', async () => {
+        checkNotificationsBtn.disabled = true;
+        diagnosticOutcome = 'loading';
+        renderDiagnosticStatus();
+        notificationDiagnosticsOutput.value = '';
+        notificationDiagnosticsOutput.hidden = true;
+        notificationDiagnosticsOutputLabel.hidden = true;
+        try {
+            const credentials = await new Promise(resolve => {
+                chrome.storage.sync.get(['rovasApiKey', 'rovasToken'], resolve);
+            });
+            const diagnostic = await RovasNotificationDiagnostics.inspect(credentials);
+            diagnosticOutcome = diagnostic.outcome;
+            if (diagnostic.result) {
+                notificationDiagnosticsOutput.value = JSON.stringify(diagnostic.result, null, 2);
+                notificationDiagnosticsOutput.hidden = false;
+                notificationDiagnosticsOutputLabel.hidden = false;
+            }
+        } catch (error) {
+            diagnosticOutcome = 'network_error';
+        } finally {
+            checkNotificationsBtn.disabled = false;
+            renderDiagnosticStatus();
+        }
+    });
+
     // Load temporary credentials from storage.local
     function loadTempCreds() {
         chrome.storage.local.get(['tempApiKey', 'tempToken'], (result) => {
@@ -337,6 +373,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.getElementById('langLabel').textContent = t.language_label;
 		populateLanguageSelector(currentLang, t, locales);
 		lastTranslations = t;
+		document.getElementById('notificationDiagnosticsTitle').textContent = t.notification_diagnostics_title;
+		document.getElementById('notificationDiagnosticsInfo').textContent = t.notification_diagnostics_info;
+		checkNotificationsBtn.textContent = t.notification_diagnostics_check;
+		notificationDiagnosticsOutputLabel.textContent = t.notification_diagnostics_output;
+		renderDiagnosticStatus();
 		updateTempState();
 		
 		document.getElementById('userStatsTitle').textContent = t.user_stats_title || 'Rovas User Stats 📊';

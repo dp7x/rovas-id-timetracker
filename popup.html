@@ -209,6 +209,16 @@
 
     <p class="license-text" id="feeText"></p>
 
+    <details class="rovas-section" id="notificationDiagnostics">
+        <summary id="notificationDiagnosticsTitle"></summary>
+        <p id="notificationDiagnosticsInfo"></p>
+        <button type="button" id="checkNotificationsBtn"></button>
+        <p id="notificationDiagnosticsStatus" role="status" aria-live="polite"></p>
+        <label for="notificationDiagnosticsOutput" id="notificationDiagnosticsOutputLabel" hidden></label>
+        <textarea id="notificationDiagnosticsOutput" readonly hidden rows="12"
+            style="width:100%; box-sizing:border-box; font-family:monospace;"></textarea>
+    </details>
+    <script src="notification-diagnostics.js"></script>
     <script src="popup.js"></script>
 </body>
 </html>

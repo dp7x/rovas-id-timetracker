@@ -50,5 +50,16 @@
   "no_reports_to_validate": "Keine Berichte zu prüfen.",
   "verifications_error": "Fehler beim Abrufen der Berichte.",
   "report_id": "Bericht",
-  "hours_short": "h"
+  "hours_short": "h",
+  "notification_diagnostics_title": "Benachrichtigungs-API prüfen",
+  "notification_diagnostics_info": "Manuelle Prüfung mit den gespeicherten Zugangsdaten. Die Antwort wird hier angezeigt; API Key und Token werden maskiert. Es wird keine separate Anfrage zum Markieren als gelesen gesendet.",
+  "notification_diagnostics_check": "Benachrichtigungs-API prüfen",
+  "notification_diagnostics_output": "API-Antwort (kann Namen und Kommentare enthalten)",
+  "notification_diagnostics_loading": "Benachrichtigungs-API wird geprüft...",
+  "notification_diagnostics_missing_credentials": "Bitte zuerst API Key und Token speichern.",
+  "notification_diagnostics_success": "JSON-Antwort empfangen. Du kannst sie unten auswählen und kopieren.",
+  "notification_diagnostics_http_error": "Der Server hat einen HTTP-Fehler zurückgegeben. Siehe Status unten.",
+  "notification_diagnostics_not_json": "Der Server hat kein JSON zurückgegeben. Siehe HTTP-Status unten.",
+  "notification_diagnostics_timeout": "Der Server hat nicht innerhalb von 15 Sekunden geantwortet.",
+  "notification_diagnostics_network_error": "Die Benachrichtigungs-API ist nicht erreichbar."
 }

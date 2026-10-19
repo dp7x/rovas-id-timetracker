@@ -50,5 +50,16 @@
   "no_reports_to_validate": "No hay informes pendientes de validar.",
   "verifications_error": "Error al obtener los informes.",
   "report_id": "Informe",
-  "hours_short": "h"
+  "hours_short": "h",
+  "notification_diagnostics_title": "Comprobación de la API de notificaciones",
+  "notification_diagnostics_info": "Comprobación manual con las credenciales guardadas. La respuesta se muestra aquí; la clave API y el token se ocultan. No se envía una solicitud independiente para marcar las notificaciones como leídas.",
+  "notification_diagnostics_check": "Comprobar API de notificaciones",
+  "notification_diagnostics_output": "Respuesta de la API (puede incluir nombres y comentarios)",
+  "notification_diagnostics_loading": "Comprobando la API de notificaciones...",
+  "notification_diagnostics_missing_credentials": "Guarda primero la clave API y el token.",
+  "notification_diagnostics_success": "Respuesta JSON recibida. Puedes seleccionarla y copiarla abajo.",
+  "notification_diagnostics_http_error": "El servidor ha devuelto un error HTTP. Consulta el estado abajo.",
+  "notification_diagnostics_not_json": "El servidor no ha devuelto JSON. Consulta el estado HTTP abajo.",
+  "notification_diagnostics_timeout": "El servidor no ha respondido en 15 segundos.",
+  "notification_diagnostics_network_error": "No se ha podido contactar con la API de notificaciones."
 }

@@ -50,5 +50,16 @@
   "hours_short": "h",
   "lang_de": "Nemecky",
   "lang_fr": "Francúzsky",
-  "lang_es": "Španielsky"
+  "lang_es": "Španielsky",
+  "notification_diagnostics_title": "Kontrola API upozornení",
+  "notification_diagnostics_info": "Manuálna kontrola s uloženými prihlasovacími údajmi. Odpoveď sa zobrazí tu; API kľúč a token sú skryté. Kontrola neposiela samostatnú požiadavku na označenie upozornení ako prečítaných.",
+  "notification_diagnostics_check": "Skontrolovať API upozornení",
+  "notification_diagnostics_output": "Odpoveď API (môže obsahovať mená a komentáre)",
+  "notification_diagnostics_loading": "Kontrolujem API upozornení...",
+  "notification_diagnostics_missing_credentials": "Najprv uložte API kľúč a token.",
+  "notification_diagnostics_success": "Odpoveď JSON bola prijatá. Nižšie ju môžete označiť a skopírovať.",
+  "notification_diagnostics_http_error": "Server vrátil chybu HTTP. Pozrite si stav nižšie.",
+  "notification_diagnostics_not_json": "Server nevrátil JSON. Pozrite si stav HTTP nižšie.",
+  "notification_diagnostics_timeout": "Server neodpovedal do 15 sekúnd.",
+  "notification_diagnostics_network_error": "Nie je možné kontaktovať API upozornení."
 }

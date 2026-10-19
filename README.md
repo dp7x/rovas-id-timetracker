@@ -120,3 +120,9 @@ ________________________________________
 **Contact**
 
 For questions or feedback, please open an issue on this GitHub repository.
+
+## Notification API diagnostics
+
+The popup includes a collapsible **Notification API check** section. Save your existing Rovas API Key and Token, open that section, and click **Check notification API**. The extension makes one authenticated GET request to `/rovas/rovas_comment_notices.json` and displays the HTTP status and JSON response. Select the output to copy it. API credentials and sensitive response fields are redacted; names and comment text may remain in the response. Results are not saved or sent elsewhere.
+
+This is a diagnostic tool, not yet an unread-comment list. It does not poll in the background or send a separate mark-as-read request. The server-side read/acknowledgment behavior is still undocumented, so the effect of this GET on pending notices has not been verified. A real response containing at least one notice is needed to establish the response fields before implementing the list.
