@@ -13,6 +13,8 @@ ________________________________________
 
 **Features**
 
+- Interface languages: English, Hungarian, Slovak, Italian, German, French, and Spanish. The popup and editor timer use the saved language or detect the browser language automatically.
+
 - Automatic Time Tracking: Records time spent actively editing in the OpenStreetMap **iD** or **Rapid** editors.
 - ROVAS Integration: Automatically submits detailed work reports to the ROVAS App upon changeset upload.
 - User-Configurable Credentials: Securely store your ROVAS API Key and Token via the extension's popup.

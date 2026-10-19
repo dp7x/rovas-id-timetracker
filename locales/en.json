@@ -47,5 +47,8 @@
   "no_reports_to_validate": "No reports to validate.",
   "verifications_error": "Error fetching reports.",
   "report_id": "Report",
-  "hours_short": "h"  
-} 
+  "hours_short": "h",
+  "lang_de": "German",
+  "lang_fr": "French",
+  "lang_es": "Spanish"
+}

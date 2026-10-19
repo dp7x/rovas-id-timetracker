@@ -47,5 +47,8 @@
   "no_reports_to_validate": "Žiadne reporty na overenie.",
   "verifications_error": "Chyba pri načítavaní reportov.",
   "report_id": "Report",
-  "hours_short": "h"
-} 
+  "hours_short": "h",
+  "lang_de": "Nemecky",
+  "lang_fr": "Francúzsky",
+  "lang_es": "Španielsky"
+}

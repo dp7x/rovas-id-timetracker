@@ -318,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-	function updateUIText(t, locales) {
+	function updateUIText(t, locales, currentLang = langSelect.value) {
 		const manifest = chrome.runtime.getManifest();
 		const version = manifest.version;
 
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.getElementById('token').placeholder = t.token_placeholder;
 		companyWorkLabel.textContent = t.company_work_checkbox;
 		document.getElementById('langLabel').textContent = t.language_label;
-		populateLanguageSelector(langSelect.value, t, locales);
+		populateLanguageSelector(currentLang, t, locales);
 		lastTranslations = t;
 		updateTempState();
 		
@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
         langSelect.value = lang;
         fetch(`locales/${lang}.json`)
             .then(res => res.json())
-            .then(t => updateUIText(t, locales));
+            .then(t => updateUIText(t, locales, lang));
     });
 
     loadTempCreds();

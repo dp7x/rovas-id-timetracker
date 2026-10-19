@@ -47,5 +47,8 @@
   "no_reports_to_validate": "Nessun report da validare.",
   "verifications_error": "Errore nel recupero dei report.",
   "report_id": "Report",
-  "hours_short": "h"
-} 
+  "hours_short": "h",
+  "lang_de": "Tedesco",
+  "lang_fr": "Francese",
+  "lang_es": "Spagnolo"
+}

@@ -47,5 +47,8 @@
   "no_reports_to_validate": "Nincsenek ellenőrizendő jelentések.",
   "verifications_error": "Hiba a jelentések letöltésekor.",
   "report_id": "Jelentés",
-  "hours_short": "ó"
-} 
+  "hours_short": "ó",
+  "lang_de": "Német",
+  "lang_fr": "Francia",
+  "lang_es": "Spanyol"
+}
