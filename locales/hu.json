@@ -47,5 +47,25 @@
   "no_reports_to_validate": "Nincsenek ellenőrizendő jelentések.",
   "verifications_error": "Hiba a jelentések letöltésekor.",
   "report_id": "Jelentés",
-  "hours_short": "ó"
-} 
+  "hours_short": "ó",
+  "lang_de": "Német",
+  "lang_fr": "Francia",
+  "lang_es": "Spanyol",
+  "notification_diagnostics_title": "Értesítési API ellenőrzése",
+  "notification_diagnostics_info": "Kézi ellenőrzés a mentett hitelesítő adatokkal. A válasz itt jelenik meg; az API-kulcs és a token rejtve marad. Az ellenőrzés nem küld külön kérést az értesítések olvasottként jelölésére.",
+  "notification_diagnostics_check": "Értesítési API ellenőrzése",
+  "notification_diagnostics_output": "API-válasz (neveket és megjegyzéseket tartalmazhat)",
+  "notification_diagnostics_loading": "Értesítési API ellenőrzése...",
+  "notification_diagnostics_missing_credentials": "Először mentsd az API-kulcsot és a tokent.",
+  "notification_diagnostics_success": "JSON-válasz érkezett. Alább kijelölheted és másolhatod.",
+  "notification_diagnostics_http_error": "A szerver HTTP-hibát küldött. Az állapotot lásd alább.",
+  "notification_diagnostics_not_json": "A szerver nem JSON-választ küldött. A HTTP-állapotot lásd alább.",
+  "notification_diagnostics_timeout": "A szerver 15 másodpercen belül nem válaszolt.",
+  "notification_diagnostics_network_error": "Nem sikerült elérni az értesítési API-t.",
+  "comment_notices_title": "Új megjegyzések",
+  "comment_notices_loading": "Megjegyzések betöltése...",
+  "comment_notices_empty": "Nincsenek új megjegyzések.",
+  "comment_notices_error": "Nem sikerült betölteni a megjegyzések értesítéseit.",
+  "comment_notices_credentials": "Az értesítések megtekintéséhez mentsd a Rovas hitelesítő adataidat.",
+  "comment_notices_open": "Megjegyzés megnyitása"
+}

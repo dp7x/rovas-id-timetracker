@@ -1,3 +1,11 @@
 {
-  "locales": ["en", "hu", "sk", "it"]
-} 
+  "locales": [
+    "en",
+    "hu",
+    "sk",
+    "it",
+    "de",
+    "fr",
+    "es"
+  ]
+}

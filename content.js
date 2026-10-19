@@ -19,13 +19,20 @@ let translations = {};
 let userLang = 'en';
 
 async function getPreferredLanguage() {
+    let supported = ['en'];
+    try {
+        const response = await fetch(chrome.runtime.getURL('locales/languages.json'));
+        const manifest = await response.json();
+        if (Array.isArray(manifest.locales) && manifest.locales.length) {
+            supported = manifest.locales;
+        }
+    } catch (e) {}
     return new Promise((resolve) => {
         chrome.storage.sync.get(['userLang'], (result) => {
-            if (result.userLang) {
+            if (supported.includes(result.userLang)) {
                 resolve(result.userLang);
             } else {
                 const browserLang = navigator.language.split('-')[0];
-                const supported = ['en', 'hu', 'sk'];
                 resolve(supported.includes(browserLang) ? browserLang : 'en');
             }
         });
@@ -35,10 +42,12 @@ async function getPreferredLanguage() {
 async function loadTranslations() {
     userLang = await getPreferredLanguage();
     try {
+        const fallback = await fetch(chrome.runtime.getURL('locales/en.json'));
+        translations = await fallback.json();
         const res = await fetch(chrome.runtime.getURL(`locales/${userLang}.json`));
-        translations = await res.json();
+        if (res.ok) translations = { ...translations, ...await res.json() };
     } catch (e) {
-        translations = {};
+        console.warn('[ROVAS] Could not load translations; keeping available fallback.');
     }
 }
 

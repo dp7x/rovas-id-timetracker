@@ -19,3 +19,23 @@ if (!firefox.browser_specific_settings?.gecko?.id) {
 }
 
 console.log(`Manifest checks passed for version ${chrome.version}`);
+
+const localeDir = path.join(root, "locales");
+const { locales } = JSON.parse(fs.readFileSync(path.join(localeDir, "languages.json"), "utf8"));
+const english = JSON.parse(fs.readFileSync(path.join(localeDir, "en.json"), "utf8"));
+const placeholders = text => (text.match(/\{\w+\}/g) || []).sort().join(",");
+for (const locale of locales) {
+  const translations = JSON.parse(fs.readFileSync(path.join(localeDir, `${locale}.json`), "utf8"));
+  for (const key of Object.keys(english)) {
+    if (typeof translations[key] !== "string" || !translations[key].trim()) {
+      throw new Error(`Missing translation: ${locale}.${key}`);
+    }
+    if (placeholders(translations[key]) !== placeholders(english[key])) {
+      throw new Error(`Translation placeholders do not match: ${locale}.${key}`);
+    }
+  }
+  for (const code of locales) {
+    if (!translations[`lang_${code}`]) throw new Error(`Missing language label: ${locale}.${code}`);
+  }
+}
+console.log(`Translation checks passed for ${locales.length} languages`);

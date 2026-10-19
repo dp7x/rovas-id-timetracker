@@ -47,6 +47,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // Helper to get translation object synchronously (from last loaded)
     let lastTranslations = {};
     function getT() { return lastTranslations; }
+    let activeLanguage = 'en';
+    const commentNotices = RovasCommentNotices.createPanel(getT, () => activeLanguage);
+
+    // Extra diagnostics are available manually, separately from the notification list.
+    const checkNotificationsBtn = document.getElementById('checkNotificationsBtn');
+    const notificationDiagnosticsStatus = document.getElementById('notificationDiagnosticsStatus');
+    const notificationDiagnosticsOutput = document.getElementById('notificationDiagnosticsOutput');
+    const notificationDiagnosticsOutputLabel = document.getElementById('notificationDiagnosticsOutputLabel');
+    let diagnosticOutcome = null;
+    function renderDiagnosticStatus() {
+        notificationDiagnosticsStatus.textContent = diagnosticOutcome
+            ? getT()['notification_diagnostics_' + diagnosticOutcome] : '';
+    }
+    checkNotificationsBtn.addEventListener('click', async () => {
+        checkNotificationsBtn.disabled = true;
+        diagnosticOutcome = 'loading';
+        renderDiagnosticStatus();
+        notificationDiagnosticsOutput.value = '';
+        notificationDiagnosticsOutput.hidden = true;
+        notificationDiagnosticsOutputLabel.hidden = true;
+        try {
+            const credentials = await new Promise(resolve => {
+                chrome.storage.sync.get(['rovasApiKey', 'rovasToken'], resolve);
+            });
+            const diagnostic = await RovasNotificationDiagnostics.inspect(credentials);
+            diagnosticOutcome = diagnostic.outcome;
+            if (diagnostic.result) {
+                notificationDiagnosticsOutput.value = JSON.stringify(diagnostic.result, null, 2);
+                notificationDiagnosticsOutput.hidden = false;
+                notificationDiagnosticsOutputLabel.hidden = false;
+            }
+        } catch (error) {
+            diagnosticOutcome = 'network_error';
+        } finally {
+            checkNotificationsBtn.disabled = false;
+            renderDiagnosticStatus();
+        }
+    });
 
     // Load temporary credentials from storage.local
     function loadTempCreds() {
@@ -206,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to update the new stats section
     async function updateRovasStats() {
+        commentNotices.refresh();
         const t = getT();
         meritsEl.textContent = t.loading_data || 'Loading...';
         chronsEl.textContent = t.loading_data || 'Loading...';
@@ -318,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-	function updateUIText(t, locales) {
+	function updateUIText(t, locales, currentLang = langSelect.value) {
 		const manifest = chrome.runtime.getManifest();
 		const version = manifest.version;
 
@@ -335,8 +374,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.getElementById('token').placeholder = t.token_placeholder;
 		companyWorkLabel.textContent = t.company_work_checkbox;
 		document.getElementById('langLabel').textContent = t.language_label;
-		populateLanguageSelector(langSelect.value, t, locales);
+		populateLanguageSelector(currentLang, t, locales);
 		lastTranslations = t;
+		activeLanguage = currentLang;
+		commentNotices.render();
+		document.getElementById('notificationDiagnosticsTitle').textContent = t.notification_diagnostics_title;
+		document.getElementById('notificationDiagnosticsInfo').textContent = t.notification_diagnostics_info;
+		checkNotificationsBtn.textContent = t.notification_diagnostics_check;
+		notificationDiagnosticsOutputLabel.textContent = t.notification_diagnostics_output;
+		renderDiagnosticStatus();
 		updateTempState();
 		
 		document.getElementById('userStatsTitle').textContent = t.user_stats_title || 'Rovas User Stats 📊';
@@ -358,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
         langSelect.value = lang;
         fetch(`locales/${lang}.json`)
             .then(res => res.json())
-            .then(t => updateUIText(t, locales));
+            .then(t => updateUIText(t, locales, lang));
     });
 
     loadTempCreds();

@@ -13,6 +13,8 @@ ________________________________________
 
 **Features**
 
+- Interface languages: English, Hungarian, Slovak, Italian, German, French, and Spanish. The popup and editor timer use the saved language or detect the browser language automatically.
+
 - Automatic Time Tracking: Records time spent actively editing in the OpenStreetMap **iD** or **Rapid** editors.
 - ROVAS Integration: Automatically submits detailed work reports to the ROVAS App upon changeset upload.
 - User-Configurable Credentials: Securely store your ROVAS API Key and Token via the extension's popup.
@@ -118,3 +120,17 @@ ________________________________________
 **Contact**
 
 For questions or feedback, please open an issue on this GitHub repository.
+
+## New comment notifications
+
+The popup loads pending watched-comment notices when opened and after saving credentials. Each notification occupies one line: click the report title to open the comment. The report ID is shown alongside the title; the date/time and full title appear on hover. Reopen the popup to check again. The API supplies notification metadata, not the comment body or author.
+
+Notifications are not hidden or stored locally. Rovas manages the pending list: after opening the comment while signed into the same Rovas account, reopen the popup to fetch the updated list.
+
+Alexander confirmed that users are not notified about their own comments and that visiting the report or comment on Rovas removes the pending notification. The extension does not call the session-based `/comment-watch/dismiss/` URL. Which reports a user automatically follows is determined by Rovas; the extension displays the notices returned by the API without project filtering. There is no background polling or operating-system notification.
+
+## Notification API diagnostics
+
+The popup includes a collapsible **Notification API check** section. Save your existing Rovas API Key and Token, open that section, and click **Check notification API**. The extension makes one authenticated GET request to `/rovas/rovas_comment_notices.json` and displays the HTTP status and JSON response. Select the output to copy it. API credentials and sensitive response fields are redacted; names and comment text may remain in the response. Results are not saved or sent elsewhere.
+
+The diagnostic tool remains available separately from the notification list and sends no dismiss request. The list uses the confirmed response shape: `status`, `count`, and `notices`, whose entries contain `nid`, `node_title`, `cid`, `comment_url`, and a Unix-seconds `created` timestamp.
