@@ -158,8 +158,6 @@
         #comment-notices-list { list-style: none; padding: 0; margin: 5px 0 0; max-height: 240px; overflow-y: auto; }
         #comment-notices-list li { display: flex; align-items: center; gap: 6px; background: #fff; border-left: 4px solid #28a745; padding: 8px; margin-bottom: 5px; font-size: 0.9em; }
         #comment-notices-list a { min-width: 0; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        #comment-notices-list button { flex-shrink: 0; margin: 0; padding: 0 4px; background: transparent; color: #666; font-size: 16px; line-height: 1; }
-        #restoreCommentNotices { background: transparent; color: #666; font-size: 12px; padding: 0; margin: 0 0 5px; text-decoration: underline; }
         #commentNoticesStatus { font-size: 13px; }
     </style>
 </head>
@@ -189,7 +187,6 @@
 
     <div class="rovas-section">
         <h4 class="section-title"><span id="commentNoticesTitle"></span><span id="commentNoticesCount"></span></h4>
-        <button type="button" id="restoreCommentNotices" hidden></button>
         <p id="commentNoticesStatus" role="status" aria-live="polite"></p>
         <ul id="comment-notices-list"></ul>
     </div>

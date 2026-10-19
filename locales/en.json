@@ -63,13 +63,9 @@
   "notification_diagnostics_timeout": "The server did not respond within 15 seconds.",
   "notification_diagnostics_network_error": "Unable to contact the notification API.",
   "comment_notices_title": "New comments",
-  "comment_notices_restore": "Show hidden notifications",
   "comment_notices_loading": "Loading comments...",
   "comment_notices_empty": "No new comments.",
   "comment_notices_error": "Unable to load comment notifications.",
   "comment_notices_credentials": "Save your Rovas credentials to view notifications.",
-  "comment_notices_open": "Open comment",
-  "comment_notices_hide": "Hide in extension",
-  "comment_notices_hide_hint": "Hides only this notification in this browser. New comments on the report will appear again.",
-  "comment_notices_storage_error": "Unable to save hidden notifications. Please try again."
+  "comment_notices_open": "Open comment"
 }

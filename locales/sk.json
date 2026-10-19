@@ -63,13 +63,9 @@
   "notification_diagnostics_timeout": "Server neodpovedal do 15 sekúnd.",
   "notification_diagnostics_network_error": "Nie je možné kontaktovať API upozornení.",
   "comment_notices_title": "Nové komentáre",
-  "comment_notices_restore": "Zobraziť skryté upozornenia",
   "comment_notices_loading": "Načítavam komentáre...",
   "comment_notices_empty": "Žiadne nové komentáre.",
   "comment_notices_error": "Nepodarilo sa načítať upozornenia na komentáre.",
   "comment_notices_credentials": "Ak chcete zobraziť upozornenia, uložte svoje prihlasovacie údaje Rovas.",
-  "comment_notices_open": "Otvoriť komentár",
-  "comment_notices_hide": "Skryť v rozšírení",
-  "comment_notices_hide_hint": "Skryje iba toto upozornenie v tomto prehliadači. Nové komentáre k výkazu sa znova zobrazia.",
-  "comment_notices_storage_error": "Nepodarilo sa uložiť skryté upozornenia. Skúste to znova."
+  "comment_notices_open": "Otvoriť komentár"
 }

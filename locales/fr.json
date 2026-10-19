@@ -63,13 +63,9 @@
   "notification_diagnostics_timeout": "Le serveur n’a pas répondu dans les 15 secondes.",
   "notification_diagnostics_network_error": "Impossible de contacter l’API des notifications.",
   "comment_notices_title": "Nouveaux commentaires",
-  "comment_notices_restore": "Afficher les notifications masquées",
   "comment_notices_loading": "Chargement des commentaires...",
   "comment_notices_empty": "Aucun nouveau commentaire.",
   "comment_notices_error": "Impossible de charger les notifications de commentaires.",
   "comment_notices_credentials": "Enregistrez vos identifiants Rovas pour afficher les notifications.",
-  "comment_notices_open": "Ouvrir le commentaire",
-  "comment_notices_hide": "Masquer dans l’extension",
-  "comment_notices_hide_hint": "Masque uniquement cette notification dans ce navigateur. Les nouveaux commentaires sur ce rapport seront affichés.",
-  "comment_notices_storage_error": "Impossible d’enregistrer les notifications masquées. Réessayez."
+  "comment_notices_open": "Ouvrir le commentaire"
 }

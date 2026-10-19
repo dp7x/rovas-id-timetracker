@@ -63,13 +63,9 @@
   "notification_diagnostics_timeout": "El servidor no ha respondido en 15 segundos.",
   "notification_diagnostics_network_error": "No se ha podido contactar con la API de notificaciones.",
   "comment_notices_title": "Nuevos comentarios",
-  "comment_notices_restore": "Mostrar notificaciones ocultas",
   "comment_notices_loading": "Cargando comentarios...",
   "comment_notices_empty": "No hay comentarios nuevos.",
   "comment_notices_error": "No se han podido cargar las notificaciones de comentarios.",
   "comment_notices_credentials": "Guarda tus credenciales de Rovas para ver las notificaciones.",
-  "comment_notices_open": "Abrir comentario",
-  "comment_notices_hide": "Ocultar en la extensión",
-  "comment_notices_hide_hint": "Oculta solo esta notificación en este navegador. Los nuevos comentarios en el informe volverán a aparecer.",
-  "comment_notices_storage_error": "No se han podido guardar las notificaciones ocultas. Inténtalo de nuevo."
+  "comment_notices_open": "Abrir comentario"
 }

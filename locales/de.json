@@ -63,13 +63,9 @@
   "notification_diagnostics_timeout": "Der Server hat nicht innerhalb von 15 Sekunden geantwortet.",
   "notification_diagnostics_network_error": "Die Benachrichtigungs-API ist nicht erreichbar.",
   "comment_notices_title": "Neue Kommentare",
-  "comment_notices_restore": "Ausgeblendete Benachrichtigungen anzeigen",
   "comment_notices_loading": "Kommentare werden geladen...",
   "comment_notices_empty": "Keine neuen Kommentare.",
   "comment_notices_error": "Kommentarbenachrichtigungen konnten nicht geladen werden.",
   "comment_notices_credentials": "Speichere deine Rovas-Zugangsdaten, um Benachrichtigungen anzuzeigen.",
-  "comment_notices_open": "Kommentar öffnen",
-  "comment_notices_hide": "In Erweiterung ausblenden",
-  "comment_notices_hide_hint": "Blendet nur diese Benachrichtigung in diesem Browser aus. Neue Kommentare zum Bericht werden wieder angezeigt.",
-  "comment_notices_storage_error": "Ausgeblendete Benachrichtigungen konnten nicht gespeichert werden. Bitte erneut versuchen."
+  "comment_notices_open": "Kommentar öffnen"
 }

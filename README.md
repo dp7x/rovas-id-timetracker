@@ -125,7 +125,7 @@ For questions or feedback, please open an issue on this GitHub repository.
 
 The popup loads pending watched-comment notices when opened and after saving credentials. Each notification occupies one line: click the report title to open the comment. The report ID is shown alongside the title; the date/time and full title appear on hover. Reopen the popup to check again. The API supplies notification metadata, not the comment body or author.
 
-The **×** control (**Hide in extension** on hover) stores that report/comment pair locally in this browser. It does not dismiss the notification on Rovas. A different comment ID on the same report appears again; **Show hidden notifications** resets the local hidden list for the current credentials. Local hidden IDs are isolated by a hash of the API key and capped at the latest 500 entries. No comment text or titles are stored.
+Notifications are not hidden or stored locally. Rovas manages the pending list: after opening the comment while signed into the same Rovas account, reopen the popup to fetch the updated list.
 
 Alexander confirmed that users are not notified about their own comments and that visiting the report or comment on Rovas removes the pending notification. The extension does not call the session-based `/comment-watch/dismiss/` URL. Which reports a user automatically follows is determined by Rovas; the extension displays the notices returned by the API without project filtering. There is no background polling or operating-system notification.
 

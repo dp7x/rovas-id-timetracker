@@ -63,13 +63,9 @@
   "notification_diagnostics_timeout": "Il server non ha risposto entro 15 secondi.",
   "notification_diagnostics_network_error": "Impossibile contattare l’API notifiche.",
   "comment_notices_title": "Nuove note",
-  "comment_notices_restore": "Mostra notifiche nascoste",
   "comment_notices_loading": "Caricamento note...",
   "comment_notices_empty": "Nessuna nuova nota.",
   "comment_notices_error": "Impossibile caricare le notifiche delle note.",
   "comment_notices_credentials": "Salva le credenziali Rovas per visualizzare le notifiche.",
-  "comment_notices_open": "Apri commento",
-  "comment_notices_hide": "Nascondi nell’estensione",
-  "comment_notices_hide_hint": "Nasconde solo questa notifica in questo browser. Eventuali nuove note sul report compariranno di nuovo.",
-  "comment_notices_storage_error": "Impossibile salvare le notifiche nascoste. Riprova."
+  "comment_notices_open": "Apri commento"
 }
