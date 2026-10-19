@@ -35,10 +35,9 @@ globalThis.RovasCommentNotices = (() => {
     function createPanel(getTranslations, getLanguage) {
         const list = document.getElementById('comment-notices-list');
         const status = document.getElementById('commentNoticesStatus');
-        const refreshButton = document.getElementById('refreshCommentNotices');
         const restoreButton = document.getElementById('restoreCommentNotices');
         const fallback = {
-            comment_notices_title: 'New comments', comment_notices_refresh: 'Refresh',
+            comment_notices_title: 'New comments',
             comment_notices_restore: 'Show hidden notifications', comment_notices_loading: 'Loading comments...',
             comment_notices_empty: 'No new comments.', comment_notices_error: 'Unable to load comment notifications.',
             comment_notices_credentials: 'Save your Rovas credentials to view notifications.',
@@ -52,7 +51,6 @@ globalThis.RovasCommentNotices = (() => {
 
         function render() {
             document.getElementById('commentNoticesTitle').textContent = t('comment_notices_title');
-            refreshButton.textContent = t('comment_notices_refresh');
             restoreButton.textContent = t('comment_notices_restore');
             restoreButton.hidden = !accountKey || !hidden.length || state !== 'ready';
             list.replaceChildren();
@@ -60,15 +58,12 @@ globalThis.RovasCommentNotices = (() => {
             document.getElementById('commentNoticesCount').textContent = state === 'ready' ? ` (${entries.length})` : '';
             status.textContent = saveError ? t('comment_notices_storage_error') : state === 'ready'
                 ? (entries.length ? '' : t('comment_notices_empty')) : t('comment_notices_' + state);
+            status.hidden = !status.textContent;
             for (const notice of entries) {
                 const li = document.createElement('li');
-                const title = document.createElement('div');
-                title.textContent = `${notice.title || 'Report'} (#${notice.nid})`;
-                const date = document.createElement('div');
-                date.className = 'comment-notice-date';
-                date.textContent = new Date(notice.created * 1000).toLocaleString(getLanguage());
                 const open = document.createElement('a');
-                open.textContent = t('comment_notices_open');
+                open.textContent = `${notice.title || 'Report'} (#${notice.nid})`;
+                open.title = `${t('comment_notices_open')}: ${open.textContent} — ${new Date(notice.created * 1000).toLocaleString(getLanguage())}`;
                 open.href = notice.url;
                 open.target = '_blank';
                 open.rel = 'noopener noreferrer';
@@ -76,10 +71,11 @@ globalThis.RovasCommentNotices = (() => {
                 // Do not hide locally on click: navigation or sign-in may fail.
                 const hide = document.createElement('button');
                 hide.type = 'button';
-                hide.textContent = t('comment_notices_hide');
-                hide.title = t('comment_notices_hide_hint');
+                hide.textContent = '×';
+                hide.setAttribute('aria-label', t('comment_notices_hide'));
+                hide.title = `${t('comment_notices_hide')}. ${t('comment_notices_hide_hint')}`;
                 hide.addEventListener('click', () => saveHidden([...hidden.filter(key => key !== notice.key), notice.key].slice(-500)));
-                li.append(title, date, open, hide);
+                li.append(open, hide);
                 list.appendChild(li);
             }
         }
@@ -87,7 +83,7 @@ globalThis.RovasCommentNotices = (() => {
         async function saveHidden(next) {
             const key = accountKey, requestGeneration = generation;
             if (!key) return;
-            refreshButton.disabled = restoreButton.disabled = true;
+            restoreButton.disabled = true;
             list.querySelectorAll('button').forEach(button => { button.disabled = true; });
             try {
                 await new Promise((resolve, reject) => chrome.storage.local.set({ [key]: next }, () => {
@@ -101,7 +97,7 @@ globalThis.RovasCommentNotices = (() => {
                 if (requestGeneration === generation) saveError = true;
             } finally {
                 if (requestGeneration === generation) {
-                    refreshButton.disabled = restoreButton.disabled = false;
+                    restoreButton.disabled = false;
                     render();
                 }
             }
@@ -110,7 +106,7 @@ globalThis.RovasCommentNotices = (() => {
         async function refresh() {
             const requestGeneration = ++generation;
             state = 'loading'; saveError = false; accountKey = null; hidden = []; notices = [];
-            refreshButton.disabled = restoreButton.disabled = true;
+            restoreButton.disabled = true;
             render();
             try {
                 const credentials = await new Promise(resolve => chrome.storage.sync.get(['rovasApiKey', 'rovasToken'], resolve));
@@ -135,13 +131,12 @@ globalThis.RovasCommentNotices = (() => {
                 if (requestGeneration === generation) state = 'error';
             } finally {
                 if (requestGeneration === generation) {
-                    refreshButton.disabled = restoreButton.disabled = false;
+                    restoreButton.disabled = false;
                     render();
                 }
             }
         }
 
-        refreshButton.addEventListener('click', refresh);
         restoreButton.addEventListener('click', () => saveHidden([]));
         return { refresh, render };
     }

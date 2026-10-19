@@ -63,7 +63,6 @@
   "notification_diagnostics_timeout": "Der Server hat nicht innerhalb von 15 Sekunden geantwortet.",
   "notification_diagnostics_network_error": "Die Benachrichtigungs-API ist nicht erreichbar.",
   "comment_notices_title": "Neue Kommentare",
-  "comment_notices_refresh": "Aktualisieren",
   "comment_notices_restore": "Ausgeblendete Benachrichtigungen anzeigen",
   "comment_notices_loading": "Kommentare werden geladen...",
   "comment_notices_empty": "Keine neuen Kommentare.",

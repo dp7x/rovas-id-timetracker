@@ -62,6 +62,7 @@ test('storage is isolated by account without exposing credentials', async () => 
 class Element {
     constructor() { this.children = []; this.events = {}; this.disabled = false; this.textContent = ''; }
     addEventListener(type, callback) { this.events[type] = callback; }
+    setAttribute(name, value) { this[name] = value; }
     append(...items) { this.children.push(...items); }
     appendChild(item) { this.children.push(item); }
     replaceChildren() { this.children = []; }
@@ -106,7 +107,7 @@ test('panel hides locally, survives refresh, restores and separates accounts', a
     let list = f.elements['comment-notices-list'];
     assert.equal(list.children.length, 1);
     assert.equal(list.children[0].children[0].textContent, 'Creating map data with iD (#579779)');
-    await list.children[0].children[3].events.click();
+    await list.children[0].children[1].events.click();
     assert.equal(list.children.length, 0);
     await f.panel.refresh();
     assert.equal(list.children.length, 0);
@@ -137,7 +138,7 @@ test('failed local save leaves the notification visible', async () => {
     const f = panelFixture();
     await f.panel.refresh();
     f.failSave();
-    await f.elements['comment-notices-list'].children[0].children[3].events.click();
+    await f.elements['comment-notices-list'].children[0].children[1].events.click();
     assert.equal(f.elements['comment-notices-list'].children.length, 1);
     assert.equal(f.elements.commentNoticesStatus.textContent, 'Unable to save hidden notifications. Please try again.');
 });

@@ -63,7 +63,6 @@
   "notification_diagnostics_timeout": "The server did not respond within 15 seconds.",
   "notification_diagnostics_network_error": "Unable to contact the notification API.",
   "comment_notices_title": "New comments",
-  "comment_notices_refresh": "Refresh",
   "comment_notices_restore": "Show hidden notifications",
   "comment_notices_loading": "Loading comments...",
   "comment_notices_empty": "No new comments.",

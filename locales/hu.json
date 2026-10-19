@@ -63,7 +63,6 @@
   "notification_diagnostics_timeout": "A szerver 15 másodpercen belül nem válaszolt.",
   "notification_diagnostics_network_error": "Nem sikerült elérni az értesítési API-t.",
   "comment_notices_title": "Új megjegyzések",
-  "comment_notices_refresh": "Frissítés",
   "comment_notices_restore": "Rejtett értesítések megjelenítése",
   "comment_notices_loading": "Megjegyzések betöltése...",
   "comment_notices_empty": "Nincsenek új megjegyzések.",

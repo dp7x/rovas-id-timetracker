@@ -63,7 +63,6 @@
   "notification_diagnostics_timeout": "Server neodpovedal do 15 sekúnd.",
   "notification_diagnostics_network_error": "Nie je možné kontaktovať API upozornení.",
   "comment_notices_title": "Nové komentáre",
-  "comment_notices_refresh": "Obnoviť",
   "comment_notices_restore": "Zobraziť skryté upozornenia",
   "comment_notices_loading": "Načítavam komentáre...",
   "comment_notices_empty": "Žiadne nové komentáre.",

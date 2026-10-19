@@ -63,7 +63,6 @@
   "notification_diagnostics_timeout": "El servidor no ha respondido en 15 segundos.",
   "notification_diagnostics_network_error": "No se ha podido contactar con la API de notificaciones.",
   "comment_notices_title": "Nuevos comentarios",
-  "comment_notices_refresh": "Actualizar",
   "comment_notices_restore": "Mostrar notificaciones ocultas",
   "comment_notices_loading": "Cargando comentarios...",
   "comment_notices_empty": "No hay comentarios nuevos.",
