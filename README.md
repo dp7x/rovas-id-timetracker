@@ -3,9 +3,14 @@
 This cross-browser extension integrates with the OpenStreetMap (OSM) iD or Rapid editor and OpenHistoricalMap (OHM) iD editor, automatically tracking your mapping time and submitting work reports to the [ROVAS App](https://rovas.app/). Chrome and Firefox builds share the same application code and use browser-specific manifests.
 
 
-## You can find the packed extension, ready to install on your browser, at the Chrome Web Store. Click here to [Download](https://chromewebstore.google.com/detail/rovas-connector-for-id-ed/ddjhgjigninagcaneanjmnbjgjangkpp) ##
+## Chrome and Firefox
 
-**The following instructions are for developers only.**
+Both browser versions are maintained in **this repository** and share the same features, translations, popup and editor timer. Only the browser manifests differ.
+
+- **Chrome / Chromium:** [Install from the Chrome Web Store](https://chromewebstore.google.com/detail/rovas-connector-for-id-ed/ddjhgjigninagcaneanjmnbjgjangkpp).
+- **Firefox:** Build the Firefox package from this repository and load it using the [Firefox instructions below](#load-the-firefox-build).
+
+Store releases may lag behind the source code in this repository.
 
 
 ________________________________________
@@ -15,6 +20,8 @@ ________________________________________
 
 - Interface languages: English, Hungarian, Slovak, Italian, German, French, and Spanish. The popup and editor timer use the saved language or detect the browser language automatically.
 
+- New Comment Notifications: Shows pending notifications for new comments on reports you follow in Rovas, with a direct link to each comment.
+- Reports to Validate and User Stats: Shows assigned report verifications and your Merits and Chrons balances.
 - Automatic Time Tracking: Records time spent actively editing in the OpenStreetMap **iD** or **Rapid** editors.
 - ROVAS Integration: Automatically submits detailed work reports to the ROVAS App upon changeset upload.
 - User-Configurable Credentials: Securely store your ROVAS API Key and Token via the extension's popup.
@@ -27,12 +34,14 @@ ________________________________________
 
 **Installation**
 
-The Chrome release is available from the [Chrome Web Store](https://chromewebstore.google.com/detail/rovas-connector-for-id-ed/ddjhgjigninagcaneanjmnbjgjangkpp). Firefox support is built from the same source and can be loaded temporarily for testing until the official Mozilla Add-ons release is available.
+For Chrome, use the store link above or build the extension locally. For Firefox, use the Firefox build from this same repository. You do not need a separate checkout or to copy changes between browser projects.
+
+The following build instructions are for development and local testing. Configuration and usage below apply to both browsers.
 
 Prerequisites: 
-- Node.js 16 or later for development builds
-- Google Chrome, a Chromium-based browser, or Firefox
-- ROVAS Account: You must be a registered user in the [ROVAS App](https://www.google.com/search?q=https://neofund.sk/rovas-api%23) and have your API KEY and TOKEN (available on your account page).
+- Node.js 18 or later for development builds
+- Google Chrome, a Chromium-based browser, or Firefox 140 or later (as required by the Firefox manifest)
+- ROVAS Account: You must be a registered user in the [ROVAS App](https://rovas.app/) and have your API KEY and TOKEN (available on your account page).
 
 **Build both browsers**
 
@@ -43,17 +52,19 @@ npm run build
 
 This creates `dist/chrome` and `dist/firefox`. Each directory contains the shared source files and the correct `manifest.json` for that browser. You can also run `npm run build:chrome` or `npm run build:firefox` separately.
 
-**Load the Chrome build**
+### Load the Chrome build
 
 1. Open `chrome://extensions` and enable Developer mode.
 2. Click **Load unpacked**.
 3. Select `dist/chrome`.
 
-**Load the Firefox build**
+### Load the Firefox build
 
 1. Open `about:debugging#/runtime/this-firefox`.
 2. Click **Load Temporary Add-on**.
 3. Select `dist/firefox/manifest.json`.
+
+This is a temporary development installation: Firefox removes it when the browser closes. After updating the source, rebuild with `npm run build:firefox` and click **Reload** in `about:debugging`. For Chrome, rebuild with `npm run build:chrome` and reload the extension at `chrome://extensions`.
 
 The root `manifest.json` remains the Chrome manifest for backward compatibility with the existing unpacked-install workflow.
 
@@ -66,7 +77,7 @@ ________________________________________
 **Configuration**
 
 After installation, you need to configure your ROVAS API credentials:
-1.	Open the Extension Popup: Click on the "ROVAS Connector for iD Editor" icon in your Chrome toolbar.
+1.	Open the Extension Popup: Click on the "ROVAS Connector for iD Editor" icon in your Chrome or Firefox toolbar.
    <img width="597" height="72" alt="Image" src="https://github.com/dp7x/rovas-id-timetracker/blob/main/readme/idr4.png" />
 
 2.	Enter Credentials: In the popup window, you'll find fields for your "API KEY" and "TOKEN."
@@ -78,7 +89,7 @@ ________________________________________
 
 **Usage**
 
-1.	Start Mapping: Navigate to the OpenStreetMap iD editor (https://www.openstreetmap.org/edit) or Rapid editor (https://https://rapideditor.org/edit). For OpenHistoricalMap, navigate to its iD editor (https://www.openhistoricalmap.org/edit).
+1.	Start Mapping: Navigate to the OpenStreetMap iD editor (https://www.openstreetmap.org/edit) or Rapid editor (https://rapideditor.org/edit). For OpenHistoricalMap, navigate to its iD editor (https://www.openhistoricalmap.org/edit).
 2.	Timer Badge: You should see a small timer badge appear in the bottom-right corner of the editor. The timer will automatically start when the page loads.
     - Use the "Pause" button to temporarily stop tracking time.
     - Use the "Start" button to resume a paused session or begin a new one if it was manually stopped.
@@ -112,7 +123,7 @@ ________________________________________
 
 **License**
 
-This project is licensed under the MIT License. See the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ________________________________________
 
