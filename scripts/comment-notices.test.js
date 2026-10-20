@@ -62,7 +62,7 @@ function panelFixture() {
             sync: { get: (_, callback) => queueMicrotask(() => callback({ rovasApiKey: 'key', rovasToken: 'token' })) },
             local: new Proxy({}, { get: () => { throw new Error('Notifications must not access local storage'); } })
         } },
-        RovasNotificationDiagnostics: { inspect: async () => result }
+        RovasCommentApi: { fetchPending: async () => result }
     });
     return { panel: api.createPanel(() => ({}), () => 'en'), elements,
         setResult: value => { result = value; } };

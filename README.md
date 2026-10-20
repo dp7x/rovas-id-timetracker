@@ -139,9 +139,3 @@ The popup loads pending watched-comment notices when opened and after saving cre
 Notifications are not hidden or stored locally. Rovas manages the pending list: after opening the comment while signed into the same Rovas account, reopen the popup to fetch the updated list.
 
 Alexander confirmed that users are not notified about their own comments and that visiting the report or comment on Rovas removes the pending notification. The extension does not call the session-based `/comment-watch/dismiss/` URL. Which reports a user automatically follows is determined by Rovas; the extension displays the notices returned by the API without project filtering. There is no background polling or operating-system notification.
-
-## Notification API diagnostics
-
-The popup includes a collapsible **Notification API check** section. Save your existing Rovas API Key and Token, open that section, and click **Check notification API**. The extension makes one authenticated GET request to `/rovas/rovas_comment_notices.json` and displays the HTTP status and JSON response. Select the output to copy it. API credentials and sensitive response fields are redacted; names and comment text may remain in the response. Results are not saved or sent elsewhere.
-
-The diagnostic tool remains available separately from the notification list and sends no dismiss request. The list uses the confirmed response shape: `status`, `count`, and `notices`, whose entries contain `nid`, `node_title`, `cid`, `comment_url`, and a Unix-seconds `created` timestamp.

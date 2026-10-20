@@ -1,6 +1,6 @@
-// Read the real notification response without assuming its undocumented schema.
-// Results stay in the popup; credentials and sensitive response fields are redacted.
-globalThis.RovasNotificationDiagnostics = (() => {
+// Fetch pending Rovas comment notifications for the popup.
+// Credentials and sensitive fields echoed by the server are redacted.
+globalThis.RovasCommentApi = (() => {
     const endpoint = 'https://rovas.app/rovas/rovas_comment_notices.json';
 
     function sanitize(value, secrets) {
@@ -21,7 +21,7 @@ globalThis.RovasNotificationDiagnostics = (() => {
         return typeof value === 'string' ? redact(value) : value;
     }
 
-    async function inspect(credentials, fetcher = fetch) {
+    async function fetchPending(credentials, fetcher = fetch) {
         if (!credentials.rovasApiKey || !credentials.rovasToken) {
             return { outcome: 'missing_credentials' };
         }
@@ -64,5 +64,5 @@ globalThis.RovasNotificationDiagnostics = (() => {
         }
     }
 
-    return { inspect };
+    return { fetchPending };
 })();

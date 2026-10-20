@@ -4,11 +4,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-const source = fs.readFileSync(path.join(__dirname, '..', 'notification-diagnostics.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '..', 'notification-api.js'), 'utf8');
 function load(overrides = {}) {
     const context = vm.createContext({ AbortController, setTimeout, clearTimeout, fetch, ...overrides });
     vm.runInContext(source, context);
-    return context.RovasNotificationDiagnostics;
+    return context.RovasCommentApi;
 }
 const credentials = { rovasApiKey: 'test-key-123', rovasToken: 'test/token-456' };
 const response = (body, status = 200, type = 'application/json') => ({
@@ -19,14 +19,14 @@ const response = (body, status = 200, type = 'application/json') => ({
 
 test('does not request notifications without both saved credentials', async () => {
     for (const creds of [{}, { rovasApiKey: 'key' }, { rovasToken: 'token' }]) {
-        const result = await load().inspect(creds, () => { throw new Error('Unexpected request'); });
+        const result = await load().fetchPending(creds, () => { throw new Error('Unexpected request'); });
         assert.equal(result.outcome, 'missing_credentials');
     }
 });
 
 test('makes exactly one authenticated GET with no cookies or redirect forwarding', async () => {
     let requests = 0;
-    const result = await load().inspect(credentials, async (url, options) => {
+    const result = await load().fetchPending(credentials, async (url, options) => {
         requests++;
         assert.equal(url, 'https://rovas.app/rovas/rovas_comment_notices.json');
         assert.equal(options.method, 'GET');
@@ -49,7 +49,7 @@ test('redacts sensitive fields and credentials echoed in nested data, keys and U
         items: [{ message: credentials.rovasApiKey, url: '?t=' + encodeURIComponent(credentials.rovasToken) }],
         [credentials.rovasApiKey]: credentials.rovasToken
     });
-    const result = await load().inspect(credentials, async () => response(body));
+    const result = await load().fetchPending(credentials, async () => response(body));
     const output = JSON.stringify(result);
     for (const secret of [...Object.values(credentials), encodeURIComponent(credentials.rovasToken), 'another-secret', 'another-key']) {
         assert.equal(output.includes(secret), false);
@@ -58,23 +58,23 @@ test('redacts sensitive fields and credentials echoed in nested data, keys and U
 });
 
 test('keeps HTTP failures distinct from an empty successful response', async () => {
-    const failure = await load().inspect(credentials, async () => response('{"error":"Denied"}', 403));
+    const failure = await load().fetchPending(credentials, async () => response('{"error":"Denied"}', 403));
     assert.equal(failure.outcome, 'http_error');
     assert.equal(failure.result.http_status, 403);
-    const empty = await load().inspect(credentials, async () => response('[]'));
+    const empty = await load().fetchPending(credentials, async () => response('[]'));
     assert.equal(empty.outcome, 'success');
     assert.equal(empty.result.response.length, 0);
 });
 
 test('does not expose HTML login/error pages', async () => {
-    const result = await load().inspect(credentials, async () => response('<html>private details</html>', 404, 'text/html'));
+    const result = await load().fetchPending(credentials, async () => response('<html>private details</html>', 404, 'text/html'));
     assert.equal(result.outcome, 'not_json');
     assert.equal(result.result.http_status, 404);
     assert.equal(JSON.stringify(result).includes('private details'), false);
 });
 
 test('network exceptions do not expose request details', async () => {
-    const result = await load().inspect(credentials, async () => { throw new Error(credentials.rovasToken); });
+    const result = await load().fetchPending(credentials, async () => { throw new Error(credentials.rovasToken); });
     assert.equal(result.outcome, 'network_error');
     assert.equal(JSON.stringify(result).includes(credentials.rovasToken), false);
 });
@@ -86,7 +86,7 @@ test('aborts slow requests after 15 seconds and clears the timeout', async () =>
         setTimeout: (callback, ms) => { assert.equal(ms, 15000); abort = callback; return 123; },
         clearTimeout: id => { assert.equal(id, 123); cleared = true; }
     });
-    const result = await api.inspect(credentials, async (_, options) => {
+    const result = await api.fetchPending(credentials, async (_, options) => {
         abort();
         assert.equal(options.signal.aborted, true);
         throw new Error('Aborted');

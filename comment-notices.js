@@ -64,7 +64,7 @@ globalThis.RovasCommentNotices = (() => {
             render();
             try {
                 const credentials = await new Promise(resolve => chrome.storage.sync.get(['rovasApiKey', 'rovasToken'], resolve));
-                const result = await RovasNotificationDiagnostics.inspect(credentials);
+                const result = await RovasCommentApi.fetchPending(credentials);
                 if (requestGeneration !== generation) return;
                 if (result.outcome === 'missing_credentials') state = 'credentials';
                 else if (result.outcome !== 'success') state = 'error';
