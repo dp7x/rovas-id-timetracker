@@ -56,5 +56,9 @@
   "comment_notices_empty": "Nessuna nuova nota.",
   "comment_notices_error": "Impossibile caricare le notifiche delle note.",
   "comment_notices_credentials": "Salva le credenziali Rovas per visualizzare le notifiche.",
-  "comment_notices_open": "Apri commento"
+  "comment_notices_open": "Apri commento",
+  "badge_pending": "Report da validare: {reports}; nuove note: {comments}",
+  "badge_empty": "Nessun report da validare e nessuna nuova nota.",
+  "badge_credentials": "Salva le credenziali Rovas per attivare il controllo delle notifiche.",
+  "badge_error": "Impossibile aggiornare le notifiche. Il segnalino conserva l’ultimo risultato valido."
 }

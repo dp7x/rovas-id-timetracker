@@ -17,6 +17,12 @@ if (!Array.isArray(firefox.background?.scripts)) {
 if (!firefox.browser_specific_settings?.gecko?.id) {
   throw new Error("Firefox manifest must define a Gecko extension ID");
 }
+for (const manifest of [chrome, firefox]) {
+  if (!manifest.permissions.includes('alarms')) throw new Error('Notification badge requires alarms permission');
+}
+for (const script of ['notification-api.js', 'comment-notices.js', 'notification-badge.js']) {
+  if (!firefox.background.scripts.includes(script)) throw new Error(`Missing Firefox background dependency: ${script}`);
+}
 
 console.log(`Manifest checks passed for version ${chrome.version}`);
 

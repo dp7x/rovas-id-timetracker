@@ -56,5 +56,9 @@
   "comment_notices_empty": "Aucun nouveau commentaire.",
   "comment_notices_error": "Impossible de charger les notifications de commentaires.",
   "comment_notices_credentials": "Enregistrez vos identifiants Rovas pour afficher les notifications.",
-  "comment_notices_open": "Ouvrir le commentaire"
+  "comment_notices_open": "Ouvrir le commentaire",
+  "badge_pending": "Rapports à valider : {reports} ; nouveaux commentaires : {comments}",
+  "badge_empty": "Aucun rapport à valider ni nouveau commentaire.",
+  "badge_credentials": "Enregistrez vos identifiants Rovas pour activer la vérification des notifications.",
+  "badge_error": "Impossible d’actualiser les notifications. Le badge conserve le dernier résultat valide."
 }

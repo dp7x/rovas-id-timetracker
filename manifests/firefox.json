@@ -1,9 +1,13 @@
 {
   "manifest_version": 3,
   "name": "ROVAS Connector for iD Editor",
-  "version": "1.80",
+  "version": "1.91",
   "description": "Tracks editing session in OpenStreetMap and OpenHistoricalMap iD and sends working reports to ROVAS App.",
-  "permissions": ["storage", "webRequest"],
+  "permissions": [
+    "storage",
+    "webRequest",
+    "alarms"
+  ],
   "host_permissions": [
     "https://www.openstreetmap.org/edit*",
     "https://api.openstreetmap.org/*",
@@ -17,7 +21,10 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": { "16": "icon16.png", "48": "icon48.png" }
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png"
+    }
   },
   "content_scripts": [
     {
@@ -26,13 +33,32 @@
         "https://www.openhistoricalmap.org/edit*",
         "https://rapideditor.org/edit*"
       ],
-      "js": ["content.js"]
+      "js": [
+        "content.js"
+      ]
     }
   ],
-  "background": { "scripts": ["background.js"] },
-  "icons": { "16": "icon16.png", "48": "icon48.png" },
+  "background": {
+    "scripts": [
+      "notification-api.js",
+      "comment-notices.js",
+      "notification-badge.js",
+      "background.js"
+    ]
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png"
+  },
   "web_accessible_resources": [
-    { "resources": ["locales/*.json"], "matches": ["<all_urls>"] }
+    {
+      "resources": [
+        "locales/*.json"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
   ],
   "browser_specific_settings": {
     "gecko": {
