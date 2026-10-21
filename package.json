@@ -1,6 +1,6 @@
 {
   "name": "rovas-id-timetracker",
-  "version": "1.80.0",
+  "version": "1.91.0",
   "private": true,
   "scripts": {
     "build": "node scripts/build.js",

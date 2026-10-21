@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ROVAS Connector for iD Editor",
-  "version": "1.80",
+  "version": "1.91",
   "description": "Tracks editing session in OpenStreetMap and OpenHistoricalMap iD and sends working reports to ROVAS App.",
   "permissions": [
     "storage",
