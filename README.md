@@ -138,4 +138,12 @@ The popup loads pending watched-comment notices when opened and after saving cre
 
 Notifications are not hidden or stored locally. Rovas manages the pending list: after opening the comment while signed into the same Rovas account, reopen the popup to fetch the updated list.
 
-Alexander confirmed that users are not notified about their own comments and that visiting the report or comment on Rovas removes the pending notification. The extension does not call the session-based `/comment-watch/dismiss/` URL. Which reports a user automatically follows is determined by Rovas; the extension displays the notices returned by the API without project filtering. There is no background polling or operating-system notification.
+Alexander confirmed that users are not notified about their own comments and that visiting the report or comment on Rovas removes the pending notification. The extension does not call the session-based `/comment-watch/dismiss/` URL. Which reports a user automatically follows is determined by Rovas; the extension displays the notices returned by the API without project filtering. There are no operating-system notifications; the toolbar badge checks for pending items in the background as described below.
+
+## Toolbar notification badge
+
+Chrome and Firefox show the combined number of reports to validate and pending new-comment notices on the extension icon (up to `99+`). The badge is orange for reports only, red whenever there are new comments, and empty when neither is pending. Hover over the icon for the separate counts in your selected language. Pin the extension to the browser toolbar to keep the badge visible.
+
+The extension checks at browser startup, installation/update, when credentials or language change, when opening the popup, and every 15 minutes while the browser is running. The `alarms` permission schedules these checks. Timing can be delayed by the browser or device sleep. Opening the popup does not dismiss items; Rovas determines what remains pending. After reading a comment or validating a report, reopen the popup or wait for the next check.
+
+A failed check keeps the existing badge and changes the tooltip to indicate the update failed. Both endpoints must return valid responses before the combined count changes. Switching credentials clears the previous account’s badge before fetching the new counts. No report titles, comment bodies or counts are stored in extension storage by the badge.

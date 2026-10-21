@@ -56,5 +56,9 @@
   "comment_notices_empty": "Nincsenek új megjegyzések.",
   "comment_notices_error": "Nem sikerült betölteni a megjegyzések értesítéseit.",
   "comment_notices_credentials": "Az értesítések megtekintéséhez mentsd a Rovas hitelesítő adataidat.",
-  "comment_notices_open": "Megjegyzés megnyitása"
+  "comment_notices_open": "Megjegyzés megnyitása",
+  "badge_pending": "Ellenőrizendő jelentések: {reports}; új megjegyzések: {comments}",
+  "badge_empty": "Nincsenek ellenőrizendő jelentések vagy új megjegyzések.",
+  "badge_credentials": "Az értesítések ellenőrzéséhez mentsd a Rovas hitelesítő adataidat.",
+  "badge_error": "Az értesítések frissítése sikertelen. A jelvény megtartja az utolsó sikeres eredményt."
 }

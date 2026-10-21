@@ -56,5 +56,9 @@
   "comment_notices_empty": "Keine neuen Kommentare.",
   "comment_notices_error": "Kommentarbenachrichtigungen konnten nicht geladen werden.",
   "comment_notices_credentials": "Speichere deine Rovas-Zugangsdaten, um Benachrichtigungen anzuzeigen.",
-  "comment_notices_open": "Kommentar öffnen"
+  "comment_notices_open": "Kommentar öffnen",
+  "badge_pending": "Zu prüfende Berichte: {reports}; neue Kommentare: {comments}",
+  "badge_empty": "Keine Berichte zu prüfen und keine neuen Kommentare.",
+  "badge_credentials": "Speichere deine Rovas-Zugangsdaten, um Benachrichtigungen zu prüfen.",
+  "badge_error": "Benachrichtigungen konnten nicht aktualisiert werden. Das Symbol behält das letzte erfolgreiche Ergebnis."
 }

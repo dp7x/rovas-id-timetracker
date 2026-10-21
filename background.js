@@ -1,5 +1,11 @@
 // background.js
 
+// Chrome uses a classic service worker; Firefox loads these as background scripts.
+if (typeof importScripts === 'function') {
+  importScripts('notification-api.js', 'comment-notices.js', 'notification-badge.js');
+}
+RovasNotificationBadge.create().start();
+
 console.log("[ROVAS Background] Service Worker started.");
 
 // Fetching from background is necessary to respect CORS

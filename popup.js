@@ -208,6 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to update the new stats section
     async function updateRovasStats() {
+        chrome.runtime.sendMessage({ type: 'ROVAS_REFRESH_BADGE' }, () => {
+            // The popup still works if the background is restarting after a reload.
+            void chrome.runtime.lastError;
+        });
         commentNotices.refresh();
         const t = getT();
         meritsEl.textContent = t.loading_data || 'Loading...';

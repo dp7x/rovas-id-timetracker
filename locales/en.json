@@ -56,5 +56,9 @@
   "comment_notices_empty": "No new comments.",
   "comment_notices_error": "Unable to load comment notifications.",
   "comment_notices_credentials": "Save your Rovas credentials to view notifications.",
-  "comment_notices_open": "Open comment"
+  "comment_notices_open": "Open comment",
+  "badge_pending": "Reports to validate: {reports}; new comments: {comments}",
+  "badge_empty": "No reports to validate or new comments.",
+  "badge_credentials": "Save your Rovas credentials to enable notification checks.",
+  "badge_error": "Unable to refresh notifications. The badge keeps the last successful result."
 }

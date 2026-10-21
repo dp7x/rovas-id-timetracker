@@ -56,5 +56,9 @@
   "comment_notices_empty": "Žiadne nové komentáre.",
   "comment_notices_error": "Nepodarilo sa načítať upozornenia na komentáre.",
   "comment_notices_credentials": "Ak chcete zobraziť upozornenia, uložte svoje prihlasovacie údaje Rovas.",
-  "comment_notices_open": "Otvoriť komentár"
+  "comment_notices_open": "Otvoriť komentár",
+  "badge_pending": "Výkazy na overenie: {reports}; nové komentáre: {comments}",
+  "badge_empty": "Žiadne výkazy na overenie ani nové komentáre.",
+  "badge_credentials": "Uložte svoje prihlasovacie údaje Rovas na zapnutie kontroly upozornení.",
+  "badge_error": "Upozornenia sa nepodarilo obnoviť. Odznak ponechá posledný úspešný výsledok."
 }

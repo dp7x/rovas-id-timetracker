@@ -56,5 +56,9 @@
   "comment_notices_empty": "No hay comentarios nuevos.",
   "comment_notices_error": "No se han podido cargar las notificaciones de comentarios.",
   "comment_notices_credentials": "Guarda tus credenciales de Rovas para ver las notificaciones.",
-  "comment_notices_open": "Abrir comentario"
+  "comment_notices_open": "Abrir comentario",
+  "badge_pending": "Informes pendientes de validar: {reports}; comentarios nuevos: {comments}",
+  "badge_empty": "No hay informes pendientes de validar ni comentarios nuevos.",
+  "badge_credentials": "Guarda tus credenciales de Rovas para activar la comprobación de notificaciones.",
+  "badge_error": "No se han podido actualizar las notificaciones. El indicador conserva el último resultado válido."
 }
